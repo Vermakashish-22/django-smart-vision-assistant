@@ -1,0 +1,25 @@
+# Virtual environment
+env/
+venv/
+ENV/
+*.env
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Django static and media
+staticfiles/
+media/
+
+# Node modules (if any)
+node_modules/
+
+# VSCode settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
