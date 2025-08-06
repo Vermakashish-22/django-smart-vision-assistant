@@ -36,7 +36,7 @@ pycparser==2.22
 pydyf==0.11.0
 Pygments==2.19.2
 pyHanko==0.27.1
-pyhanko-certvalidator==0.27.0
+pyhanko-certvalidator==0.26.8
 pypdf==5.9.0
 pyphen==0.17.2
 python-bidi==0.6.6
