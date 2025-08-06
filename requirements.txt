@@ -12,7 +12,7 @@ click==8.1.8
 colorama==0.4.6
 cookiecutter==2.6.0
 cryptography==45.0.5
-cssselect2==0.8.0
+cssselect2==0.7.0
 dj-database-url==3.0.1
 Django==5.2.3
 django-admin-adminlte==1.0.14
