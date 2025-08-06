@@ -41,7 +41,7 @@ pypdf==5.9.0
 pyphen==0.16.0
 python-bidi==0.6.6
 python-dateutil==2.9.0.post0
-python-dotenv==1.1.1
+python-dotenv==1.0.1
 python-slugify==8.0.4
 PyYAML==6.0.2
 reportlab==4.4.3
