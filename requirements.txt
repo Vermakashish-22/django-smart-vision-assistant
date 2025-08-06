@@ -18,7 +18,7 @@ Django==4.2.23
 django-admin-adminlte==1.0.14
 django-browser-reload==1.15.0
 django-colorfield==0.14.0
-django-tailwind==4.0.1
+django-tailwind==3.6.9
 fonttools==4.59.0
 gunicorn==23.0.0
 html5lib==1.1
