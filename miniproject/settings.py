@@ -15,7 +15,11 @@ import os
 
 load_dotenv()  # Load variables from .env
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'django-smart-vision-assistant.onrender.com',
+]
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,8 +32,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-key')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts (split space-separated string into list)
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', "127.0.0.1:8000,localhost,django-smart-vision-assistant.onrender.com").split(',')
-# Application definition
+# # Application definition
 
 INSTALLED_APPS = [
     'tailwind',
