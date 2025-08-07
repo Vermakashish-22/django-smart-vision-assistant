@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-key')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts (split space-separated string into list)
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', "127.0.0.1").split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', "127.0.0.1,localhost,django-smart-vision-assistant.onrender.com").split(',')
 # Application definition
 
 INSTALLED_APPS = [
@@ -127,15 +127,15 @@ USE_I18N = True
 
 USE_TZ = True
 
-{
-    "files.associations": {
-        "*.html": "html"
-    },
-    "emmet.includeLanguages": {
-        "html": "html"
-    },
-    "emmet.triggerExpansionOnTab": True
-}
+# {
+#     "files.associations": {
+#         "*.html": "html"
+#     },
+#     "emmet.includeLanguages": {
+#         "html": "html"
+#     },
+#     "emmet.triggerExpansionOnTab": True
+# }
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
