@@ -13,6 +13,9 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
+load_dotenv()  # Load variables from .env
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,8 +137,6 @@ USE_TZ = True
     "emmet.triggerExpansionOnTab": True
 }
 
-load_dotenv()  # Load variables from .env
-GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # or your provider
