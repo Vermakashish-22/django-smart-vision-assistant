@@ -153,14 +153,15 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),
-]
+# Directory where static files will be collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Only include app-level static folders
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # if you have a 'static' folder for global assets
+]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_URL="/media/"
