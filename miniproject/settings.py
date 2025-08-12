@@ -34,6 +34,8 @@ DEBUG = 'True'
 # Allowed hosts (split space-separated string into list)
 # # Application definition
 
+# test git change
+
 INSTALLED_APPS = [
     'tailwind',
     'theme',
@@ -42,7 +44,6 @@ INSTALLED_APPS = [
     'patients',
     'admin_adminlte.apps.AdminAdminlteConfig',
     'colorfield',
-    'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,9 +64,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'miniproject.urls'
 
@@ -162,7 +164,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # if you have a 'static' folder for global assets
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
