@@ -3,20 +3,15 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
+@cache_page(60 * 15)  
 def home(request):
     # return HttpResponse("Hello World.")
     return render(request,'home.html')
-    
-def about(request):
-    doctors = [
-    {'name': 'Dr. Ananya Verma', 'specialization': 'Cataract Specialist', 'experience': '10+', 'image': 'images/doctor1.jpg'},
-    {'name': 'Dr. Aarav Mehta', 'specialization': 'Retina Surgeon', 'experience': '8+', 'image': 'images/doctor2.jpg'},
-    {'name': 'Dr. Isha Kapoor', 'specialization': 'Cornea Specialist', 'experience': '6+', 'image': 'images/doctor3.jpg'},
-    {'name': 'Dr. Rahul Sharma', 'specialization': 'Lens Replacement', 'experience': '12+', 'image': 'images/doctor4.jpg'},
-    {'name': 'Dr. Karan Desai', 'specialization': 'Oculoplasty Expert', 'experience': '7+', 'image': 'images/doctor5.jpg'},
-    ]
-    return render(request,'about.html', {'doctors': doctors})
+ 
+@cache_page(60 * 15)  
 def services(request):
     # return HttpResponse("Hello World.")
     return render(request,'services.html')
