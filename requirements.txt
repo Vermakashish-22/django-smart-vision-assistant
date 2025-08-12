@@ -20,7 +20,7 @@ cssselect2==0.7.0
 dj-database-url==3.0.1
 Django==4.2.23
 django-admin-adminlte==1.0.14
-django-browser-reload==1.18.0
+django-browser-reload==1.15.0
 django-colorfield==0.14.0
 django-tailwind==4.0.1
 fonttools==4.59.0
