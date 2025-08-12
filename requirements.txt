@@ -18,7 +18,7 @@ cookiecutter==2.6.0
 cryptography==45.0.5
 cssselect2==0.7.0
 dj-database-url==3.0.1
-Django==5.2.3
+Django==4.2.23
 django-admin-adminlte==1.0.14
 django-browser-reload==1.18.0
 django-colorfield==0.14.0
