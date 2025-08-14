@@ -75,7 +75,7 @@ tinycss2==1.4.0
 # tinyhtml5==2.0.0
 toml==0.10.2
 tornado==6.4.2
-types-python-dateutil==2.9.0.20250708
+types-python-dateutil==2.9.0.20241206
 typing_extensions==4.14.1
 tzdata==2025.2
 tzlocal==5.3.1
