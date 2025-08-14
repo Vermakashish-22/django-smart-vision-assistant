@@ -23,7 +23,7 @@ django-admin-adminlte==1.0.14
 django-browser-reload==1.15.0
 django-colorfield==0.14.0
 django-tailwind==3.6.0
-fonttools==4.59.0
+fonttools==4.57.0
 gitdb==4.0.12
 GitPython==3.1.45
 gunicorn==23.0.0
