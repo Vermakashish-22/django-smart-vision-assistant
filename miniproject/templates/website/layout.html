@@ -1,0 +1,180 @@
+{% load static tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Default value
+        {% endblock %}
+    </title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+<style>
+    .clip-slant {
+        clip-path: polygon(0 0, 100% 0%, 85% 100%, 0% 100%);
+    }
+
+    @media (max-width: 768px) {
+        .clip-slant {
+        clip-path: none; /* Disable slant on small screens */
+        }
+    }
+</style>
+
+    {% tailwind_css %}
+</head>
+<body class="bg-white text-[#353535]" style="font-family: 'Cinzel', serif;">
+    <!-- Navbar -->
+<nav class="bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.8)]">
+    <div class="max-w-full px-3 sm:px-6 lg:px-8">
+        <div class="flex justify-content-around items-center gap-x-2 h-20">
+
+        <div class="flex items-center justify-content-between">
+            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A365D] md:max-width: flex items-center md:items-start py-4 md:py-0">
+            Smart Vision Assistant
+            </div>
+        </div>
+        <div class="flex items-center justify-content-between">
+            <button type="button" class="inline-flex items-center p-2 ml-auto rounded-md text-gray-400 lg:hidden hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-teal-900" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path class="inline" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+            <!-- Center Nav Links -->
+            <div class="hidden lg:flex items-center gap-x-6 text-[#1A365D] font-semibold text-base">
+                <a href="{% url 'home' %}" class="text-lg hover:text-[#122D4F] transition duration-200">Home</a>
+                <a href="{% url 'services' %}" class="text-lg hover:text-[#122D4F] transition duration-200">Services</a>
+                <a href="{% url 'consultation_form' %}" class="text-lg hover:text-[#122D4F] transition duration-200">Check Symptoms</a>
+                <a href="{% url 'contact' %}" class="text-lg hover:text-[#122D4F] transition duration-200">Contact</a>
+            </div>
+
+            <!-- Login & Sign Up Buttons -->
+            <div class="hidden lg:flex items-center gap-x-3">
+                <a href="{% url 'login_get_view' %}" class="block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white px-4 py-2 rounded shadow hover:shadow-lg transform hover:scale-105 transition duration-300">
+                    Login
+                </a>
+                <a href="{% url 'register_get' %}" class="block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white px-4 py-2 rounded shadow hover:shadow-lg transform hover:scale-105 transition duration-300 xl:text-sm">
+                    Sign Up
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Menu -->
+        <div class="lg:hidden hidden" id="mobile-menu">
+        <div class="px-4 flex flex-col pt-3 pb-6 space-y-5 bg-[#F5F5F5] text-[#1A365D] font-semibold text-center">
+            <a href="{% url 'home' %}" class="inline-block hover:text-[#122D4F] transition">Home</a>
+            <a href="{% url 'services' %}" class="inline-block hover:text-[#122D4F] transition">Services</a>
+            <a href="{% url 'consultation_form' %}" class="inline-block hover:text-[#122D4F] transition">Check Symptoms</a>
+            <a href="{% url 'contact' %}" class="inline-block hover:text-[#122D4F] transition">Contact</a>
+
+            <a href="{% url 'login_get_view' %}" class="block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white px-4 py-2 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300">
+            Login
+            </a>
+            <a href="{% url 'register_get' %}" class="block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white px-4 py-2 rounded-full shadow hover:shadow-lg transform hover:scale-105 transition duration-300">
+            Sign Up
+            </a>
+        </div>
+        </div>
+    </nav>
+    <!-- This is where the content of child templates will be inserted -->
+    {% block content %}
+
+    {% endblock %}
+
+
+    {% block footer %}
+
+        <footer class="text-white py-10 bg-[#1A365D] ">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand Info -->
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Smart vision assistant</h2>
+                    <p class="text-sm">© 2025 Smart Health Assistant. All rights reserved.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+                        <li><a href="{% url 'services' %}" class="hover:underline">Services</a></li>
+                        <li><a href="{% url 'consultation_form' %}" class="hover:underline">Check Symptoms</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Our Services -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Our Services</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="{% url 'services' %}" class="hover:underline">Eye Checkups</a></li>
+                        <li><a href="{% url 'services' %}" class="hover:underline">Surgery</a></li>
+                        <li><a href="{% url 'services' %}" class="hover:underline">Consultation</a></li>
+                        <li><a href="{% url 'services' %}" class="hover:underline">Vision Therapy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Contact Us</h3>
+                    <p class="text-sm text-white">123 VisionCare Lane<br>
+                        Wellness City, WC 45678</p>
+                    <p class="mt-2 text-sm text-white">Email: <a href="mailto:support@visioncare.com" class="underline">support@visioncare.com</a></p>
+                    <p class="text-sm text-white">Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="mt-10 pt-4 text-center text-sm text-white">
+                &copy; 2025 VisionCare. All rights reserved.
+            </div>
+        </footer>
+
+    {% endblock footer %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const isPlus = counter.classList.contains('plus');
+
+        const animate = () => {
+            const count = +counter.innerText.replace(/\D/g, '');
+            const increment = target / speed;
+
+            if (count < target) {
+            counter.innerText = Math.ceil(count + increment).toLocaleString() + (isPlus ? "+" : "");
+            setTimeout(animate, 20);
+            } else {
+            counter.innerText = target.toLocaleString() + (isPlus ? "+" : "");
+            }
+        };
+        animate();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
+

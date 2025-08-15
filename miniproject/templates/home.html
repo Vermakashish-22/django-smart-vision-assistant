@@ -1,0 +1,133 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block title %}Home - VisionCare{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-gray-200 text-[#1A365D] py-16">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col-reverse md:flex-row items-center gap-12">
+    
+    <!-- Left Text Content -->
+    <div class="w-full md:w-1/2 text-center md:text-left">
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-6 tracking-tight"  style="font-family: 'Cinzel', serif;">
+            Better vision Smarter care
+        </h1>
+        <p class="text-lg text-justify text-gray-700 mb-8">
+            Experience a smarter way to protect your eye health. Our system empowers you to detect problems early, get trusted guidance instantly, and connect with the right experts—saving time, reducing anxiety, and ensuring peace of mind.
+        </p>
+        <a href="{% url 'login_get_view' %}?next={% url 'consultation_form' %}' %}" class="inline-block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+            Start Your Vision Check
+        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'appointment_form' %}" class="btn inline-block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white py-3 mx-2 my-2 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+                Book Appointment
+            </a>
+        {% else %}
+            <a href="{% url 'login_get_view' %}?next={% url 'appointment_form' %}" class="btn inline-block bg-gradient-to-r from-[#1A365D] to-[#2B486B] text-white py-3 mx-2 my-2 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+                Login to Book Appointment
+            </a>
+        {% endif %}
+    </div>
+
+    <!-- Right Image -->
+    <div class="w-full md:w-1/2 flex justify-center">
+        <dotlottie-wc
+            src="https://lottie.host/7d14724e-f0b6-4e20-8795-6440070e3a1b/seSq956dMT.lottie"
+            style="width: 400px;height: 400px"
+            speed="1"
+            autoplay
+            loop
+            
+        ></dotlottie-wc>
+    </div>
+  </div>
+</section>
+
+
+<section class="bg-white text-white py-12">
+    <h2 class="text-gray-800 text-3xl md:text-4xl font-bold py-5 mb-5 text-center">OUR ACHIEVEMENTS</h2>
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+
+        <!-- Happy Patients -->
+
+        <div class="p-4 rounded-lg shadow-lg bg-[#1A365D]">
+            <h2 class="text-5xl font-extrabold mb-2 counter plus" data-target="20000">0</h2>
+            <p class="text-lg font-medium">Happy Patients</p>
+        </div>
+
+        <!-- Surgeries Completed -->
+        <div class="p-4 rounded-lg shadow-lg bg-[#1A365D]">
+            <h2 class="text-5xl font-extrabold mb-2 counter plus" data-target="700">0</h2>
+            <p class="text-lg font-medium">Consultations</p>
+        </div>
+
+        <!-- Expert Doctors -->
+        <div class="p-4 rounded-lg shadow-lg bg-[#1A365D]">
+            <h2 class="text-5xl font-extrabold mb-2 counter" data-target="40">0</h2>
+            <p class="text-lg font-medium">Expert Doctors</p>
+        </div>
+
+        <!-- Worldwide Branches -->
+        <div class="p-4 rounded-lg shadow-lg bg-[#1A365D]">
+            <h2 class="text-5xl font-extrabold mb-2 counter" data-target="20">0</h2>
+            <p class="text-lg font-medium">Worldwide Branches</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="bg-gray-200 py-16">
+     <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <h2 class="text-3xl font-semibold text-center text-[#1A365D] mb-12">Why Choose Us</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+      
+      <!-- Symptom Checker -->
+      <div class="bg-white rounded-md p-6 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+        <a href="{% url 'consultation_form' %}">
+          <div class="flex justify-center items-center mb-4">
+            <i data-lucide="brain-circuit" class="w-12 h-12 text-[#1A365D]"></i>
+          </div>
+          <h3 class="font-bold text-lg text-center text-[#1A365D] mb-2">Symptom Checker</h3>
+          <p class="text-gray-600 text-justify">Get quick AI-based analysis of your symptoms with suggestions for next steps.</p>
+        </a>
+      </div>
+
+      <!-- Easy Appointments -->
+      <div class="bg-white rounded-md p-6 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+        <a href="{% url 'appointment_form' %}">
+          <div class="flex justify-center items-center mb-4">
+            <i data-lucide="calendar-check" class="w-12 h-12 text-[#1A365D]"></i>
+          </div>
+          <h3 class="font-bold text-lg text-center text-[#1A365D] mb-2">Easy Appointments</h3>
+          <p class="text-gray-600 text-justify">Schedule consultations with eye care professionals seamlessly in a few clicks.</p>
+        </a>
+      </div>
+
+      <!-- 24/7 Support -->
+      <div class="bg-white rounded-md p-6 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+        <a href="{% url 'contact' %}">
+          <div class="flex justify-center items-center mb-4">
+            <i data-lucide="headphones" class="w-12 h-12 text-[#1A365D]"></i>
+          </div>
+          <h3 class="font-bold text-lg text-center text-[#1A365D] mb-2">24/7 Support</h3>
+          <p class="text-gray-600 text-justify">We're here to help any time, anywhere. Your vision health matters.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script
+  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+  type="module"
+></script>
+
+   <script>
+    lucide.createIcons();
+  </script>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Edit Doctor{% endblock title %}
+{% block bodyclass %}hold-transition sidebar-mini{% endblock bodyclass %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Page Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit Doctor</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Edit Doctor</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card card-white">
+                        <div class="card-header text-white" style="background-color:#134e4a;">
+                            <h3 class="card-title">Doctor Details</h3>
+                        </div>
+                        <!-- form start -->
+                        <form action="{% url 'doctor_update' doctor.id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="user">User (Cannot be changed)</label>
+                                    <select class="form-control select2" id="user" name="user" disabled>
+                                        <option value="">Select User</option>
+                                        {% for user in users %}
+                                            <option value="{{ user.id }}" {% if doctor.user.id == user.id %}selected{% endif %}>{{ user.username }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="specialization">Specialization</label>
+                                    <input type="text" class="form-control" id="specialization" name="specialization" value="{{ doctor.specialization }}" placeholder="Enter specialization" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="fees">Fees</label>
+                                    <input type="text" class="form-control" id="fees" name="fees" value="{{ doctor.fees }}" placeholder="Enter fees" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>Current Image:</label><br>
+                                    {% if doctor.image %}
+                                        <img src="{{ doctor.image.url }}" width="100" height="100" class="rounded mb-2">
+                                    {% else %}
+                                        <p>No Image</p>
+                                    {% endif %}
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-white text-white" style="background-color:#134e4a;">Update</button>
+                                <a href="{% url 'doctor_list' %}" class="btn btn-secondary ml-2">Cancel</a>
+                            </div>
+                        </form>
+                    </div> <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}

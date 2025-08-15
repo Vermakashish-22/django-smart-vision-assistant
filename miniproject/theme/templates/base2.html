@@ -1,0 +1,90 @@
+{% load static tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% comment %} <link href="{% static 'admin-lte/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> {% endcomment %}
+
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    {% tailwind_css %}
+
+    {% block extrastyle %}
+
+{% endblock extrastyle %}
+</head>
+<body class="hold-transition w-full">
+<div class="container px-0 w-full" style="font-family: 'Cinzel', serif;">
+
+    {% block navbar %}
+        <nav class="navbar shadow-md p-4 bg-[#1A365D]">
+            <div class="container-fluid flex justify-between items-center w-full">
+                <div class="text-4xl font-bold text-white">
+                    Smart Vision Assistant
+                </div>
+
+                <div class="nav-item flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                    <a href="{% url 'logout' %}" class="nav-link flex items-center space-x-1 hover:text-white">
+                        <i class="fas fa-sign-out-alt text-gray-300"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    {% endblock navbar %}
+
+    <!-- Page Content Wrapper -->
+    <div class="container-fluid">
+        {% block content %}{% endblock content %}
+    </div>
+    <!-- /.content-wrapper -->
+
+    {% block footer %}
+                
+            <footer class="main-footer bg-white text-gray-300 py-4 px-6 shadow-inner ml-0 rounded-t-md">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+
+                <div>
+                <strong>&copy; 2025 <span class="text-white font-medium">Smart Vision Assistant Admin Panel</span></strong>
+                </div>
+
+                <div class="mt-2 sm:mt-0">
+                <a href="{% url 'home' %}" class="hover:text-orange-400 transition">Home</a>
+                <span class="mx-2">|</span>
+                <a href="{% url 'services' %}" class="hover:text-orange-400 transition">Services</a>
+                <span class="mx-2">|</span>
+                <a href="{% url 'consultation_form' %}" class="hover:text-orange-400 transition">Check Symptoms</a>
+                <span class="mx-2">|</span>
+                <a href="{% url 'contact' %}" class="hover:text-orange-400 transition">Contact</a>
+                <span class="mx-2">|</span>
+                
+                </div>
+
+            </div>
+            </footer>
+
+    {% endblock footer %}
+
+
+</div>
+
+{% include 'includes/scripts.html' %}
+{% block extra_scripts %}{% endblock extra_scripts %}
+
+</body>
+</html>
