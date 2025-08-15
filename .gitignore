@@ -1,8 +1,11 @@
 # Virtual environment
 env/
 venv/
-ENV/
-*.env
+__pycache__/
+*.pyc
+
+
+.env 
 
 # Byte-compiled / cache
 __pycache__/
