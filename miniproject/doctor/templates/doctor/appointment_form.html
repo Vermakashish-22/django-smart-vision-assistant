@@ -1,0 +1,236 @@
+{% extends 'base2.html' %}
+{% load i18n static %}
+
+{% block title %}Appointment Add{% endblock title %}
+{% block bodyclass %}appointment-add{% endblock bodyclass %}
+
+{% block content %}
+{% comment %} <div class="min-h-screen bg-gray-300 flex items-center justify-center px-4 pt-2 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full max-w-6xl bg-white shadow-lg rounded-lg my-4 overflow-hidden 
+    transform transition-all duration-300 hover:-translate-1 hover:shadow-2xl">
+
+        <!-- Left Column: Animation -->
+        <div class="hidden lg:flex items-center justify-center p-6">
+            <img src="{% static 'images/doctor_appointment.png' %}" alt="Doctor GIF" class="w-75 max-w-md h-75 object-contain" />
+        </div>
+
+        <!-- Right Column: Form -->
+        <div class="px-8 sm:p-12 w-full shadow hover:shadow-xl transition duration-200">
+            <h2 class="text-3xl font-bold text-gray-900 my-lg-4 text-center">Add Appointment</h2>
+
+            <form method="post" action="{% url 'appointment_form' %}" enctype="multipart/form-data" autocomplete="off" class="space-y-5">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="toast-popup"
+                            class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded shadow-lg flex items-center gap-3 transition-all duration-300
+                            {% if message.tags == 'success' %}
+                            bg-green-600 text-white
+                            {% elif message.tags == 'error' %}
+                            bg-red-600 text-white
+                            {% elif message.tags == 'warning' %}
+                            bg-yellow-500 text-black
+                            {% elif message.tags == 'info' %}
+                            bg-blue-600 text-white
+                            {% else %}
+                            bg-gray-700 text-white
+                            {% endif %}
+                            ">
+
+                        <!-- ICONS -->
+                        {% if message.tags == 'success' %}
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        {% elif message.tags == 'error' %}
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        {% elif message.tags == 'warning' %}
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z"/>
+                            </svg>
+                        {% elif message.tags == 'info' %}
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+                            </svg>
+                        {% endif %}
+
+                        <!-- MESSAGE TEXT -->
+                        <span>{{ message }}</span>
+
+                        <!-- DISMISS BUTTON -->
+                        <button onclick="closeToast()" class="ml-auto font-bold hover:opacity-80">
+                            &times;
+                        </button>
+                    </div>
+                    {% endfor%}
+                {% endif %}
+
+                <!-- Patient Name -->
+                <div>
+                    <label for="patient_name" class="block text-lg font-medium text-gray-700"><b>Patient Name</b></label>
+                    <input type="text" name="patient_name" id="patient_name" placeholder="Enter patient name"
+                        class="mt-1 block w-full border text-md border-gray-300 rounded-md px-3 py-2 focus:ring-teal-500 focus:border-teal-500" required>
+                </div>
+
+                <!-- Assigned Doctor -->
+                <div>
+                    <label for="assigned_doctor" class="block text-lg font-medium text-gray-700"><b>Assign Doctor</b></label>
+                    <select name="assigned_doctor" id="assigned_doctor"
+                        class="mt-1 block w-full border text-md border-gray-300 rounded-md px-3 py-2 focus:ring-teal-500 focus:border-teal-500" required>
+                        <option value="">-- Choose Doctor --</option>
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Date and Time in one row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="appointment_date" class="block text-lg font-medium text-gray-700"><b>Date</b></label>
+                        <input type="date" name="appointment_date" id="appointment_date"
+                            class="mt-1 block w-full border text-md border-gray-300 rounded-md px-3 py-2 focus:ring-teal-500 focus:border-teal-500" required>
+                    </div>
+
+                    <div>
+                        <label for="appointment_time" class="block text-lg font-medium text-gray-700"><b>Time</b></label>
+                        <input type="time" name="appointment_time" id="appointment_time"
+                            class="mt-1 block w-full border text-md border-gray-300 rounded-md px-3 py-2 focus:ring-teal-500 focus:border-teal-500" required>
+                    </div>
+                </div>
+
+                <!-- Reason -->
+                <div>
+                    <label for="reason" class="block text-lg font-medium text-gray-700"><b>Reason</b></label>
+                    <input type="text" name="reason" id="reason" placeholder="Reason for appointment"
+                        class="mt-1 block w-full border text-md border-gray-300 rounded-md px-3 py-2 focus:ring-teal-500 focus:border-teal-500">
+                </div>
+
+                <!-- Profile Image -->
+                <div>
+                    <label for="profile_image" class="block text-lg font-medium text-gray-700"><b>Reportfile Image</b></label>
+                    <input type="file" name="profile_image" id="profile_image"
+                        class="mt-1 block w-full text-sm text-gray-500 text-md file:mr-4 file:py-4 file:px-4 file:rounded-md file:border file:border-gray-300 file:bg-gray-300 file:text-gray-700 hover:file:bg-teal-100">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit"
+                        class="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 mt-4 px-4 rounded-md shadow">
+                        Save Appointment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Lottie Player CDN -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<script>
+    function closeToast() {
+        document.getElementById('toast-popup').style.display = 'none';
+    }
+
+    // Auto-close after 3 seconds
+    setTimeout(closeToast, 3000);
+</script>
+
+{% endblock %} {% endcomment %}
+
+
+<div class="min-h-screen bg-gray-200 flex items-center justify-center px-4 pt-2 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full max-w-6xl bg-white shadow-lg rounded-xl my-4 overflow-hidden">
+
+        <!-- Left Column: Animation -->
+        <div class="hidden lg:flex items-center justify-center p-6">
+            <img src="{% static 'images/doctor_appointment.png' %}" alt="Doctor GIF" class="w-75 max-w-md h-75 object-contain" />
+        </div>
+
+        <!-- Right Column: Form -->
+        <div class="px-8 sm:p-12 w-full bg-gray-100">
+            <h2 class="text-3xl font-bold text-[#1A365D] mb-6 text-center">Add Appointment</h2>
+
+            <form method="post" action="{% url 'appointment_form' %}" enctype="multipart/form-data" autocomplete="off" class="space-y-6">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="toast-popup"
+                            class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded shadow-lg flex items-center gap-3 transition-all duration-300
+                            {% if message.tags == 'success' %}bg-green-600 text-white
+                            {% elif message.tags == 'error' %}bg-red-600 text-white
+                            {% elif message.tags == 'warning' %}bg-yellow-400 text-black
+                            {% elif message.tags == 'info' %}bg-blue-600 text-white
+                            {% else %}bg-gray-800 text-white{% endif %}">
+                            <!-- ICON -->
+                            <span class="font-semibold">{{ message }}</span>
+                            <button onclick="closeToast()" class="ml-auto font-bold hover:opacity-80">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Patient Name -->
+                <div>
+                    <label for="patient_name" class="block text-md font-semibold text-[#1A365D]">Patient Name</label>
+                    <input type="text" name="patient_name" id="patient_name" placeholder="Enter patient name"
+                        class="mt-1 block w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-[#1A365D] focus:border-[#1A365D]" required>
+                </div>
+
+                {% comment %} <div>
+                    <label for="age" class="block text-md font-semibold text-[#1A365D]">Age</label>
+                    <input type="text" name="age" id="age" placeholder="Enter Age"
+                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md px-4 py-2 focus:ring-[#1A365D] focus:border-[#1A365D]">
+                </div> {% endcomment %}
+                    
+                <div>
+                    <label for="appointment_date" class="block text-md font-semibold text-[#1A365D]">Date</label>
+                    <input type="date" name="appointment_date" id="appointment_date"
+                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md px-4 py-2 focus:ring-[#1A365D] focus:border-[#1A365D]" required>
+                </div>
+
+                <div>
+                    <label for="appointment_time" class="block text-md font-semibold text-[#1A365D]">Time</label>
+                    <input type="time" name="appointment_time" id="appointment_time"
+                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md px-4 py-2 focus:ring-[#1A365D] focus:border-[#1A365D]" required>
+                </div>
+        
+
+                <!-- Reason -->
+                <div>
+                    <label for="reason" class="block text-md font-semibold text-[#1A365D]">Reason</label>
+                    <input type="text" name="reason" id="reason" placeholder="Reason for appointment"
+                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md px-4 py-2 focus:ring-[#1A365D] focus:border-[#1A365D]">
+                </div>
+
+                <!-- Profile Image -->
+                <div>
+                    <label for="profile_image" class="block text-md font-semibold text-[#1A365D]">Upload Image</label>
+                    <input type="file" name="profile_image" id="profile_image"
+                        class="mt-1 block w-full bg-white text-sm text-gray-600 file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border file:border-gray-300 file:bg-gray-200 file:text-[#1A365D] hover:file:bg-gray-300">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit"
+                        class="w-full bg-[#1A365D] hover:bg-[#162E4B] text-white font-medium py-3 mt-3 px-4 rounded-md shadow transition duration-200">
+                        Save Appointment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeToast() {
+        document.getElementById('toast-popup').style.display = 'none';
+    }
+    setTimeout(closeToast, 3000);
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Consultation Patients {% endblock %}
+{% block bodyclass %} hold-transition sidebar-mini {% endblock %}
+
+{% block content %}
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header flex justify-center items-center w-full" style="background-color: #948979;">
+                <h3 class="card-title m-0 text-lg fw-bold text-uppercase text-white" style="letter-spacing: 0.3em;">
+                    CONSULTING PATIENTS LIST
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>S.no.</th>
+                                <th>Patient Name</th>
+                                <th>Email</th>
+                                <th>Age</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Disease</th>
+                                <th>Medicine</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for patient in consultation_patients %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ patient.name }}</td>
+                                <td>{{ patient.email }}</td>
+                                <td>{{ patient.age }}</td>
+                                <td>{{ patient.doctor.user.username }}</td>
+                                <td>{{ patient.date }}</td>
+                                <td>{{ patient.time }}</td>
+                                <td style="max-width: 200px;">
+                                    {{ patient.user_prescription }}
+                                </td>
+
+                                <td style="max-width: 200px;" class="text-gray-800 overflow-y-auto max-h-60">
+                                    {{ patient.medicines_only|safe }}
+                                </td>
+
+                                <td>
+                                    <form action="{% url 'consultation_delete' patient.id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this consultation?');">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="10" class="text-center">No consultation patients found.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

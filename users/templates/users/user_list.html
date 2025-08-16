@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Users {% endblock %}
+{% block bodyclass %} hold-transition sidebar-mini {% endblock %}
+
+{% block content %}
+<section class="content pt-4">
+    <div class="container-fluid">
+        <div class="card">
+        <div class="card-header flex justify-center items-center w-full" style="background-color: #948979;">
+            <h3 class="card-title m-0 text-lg fw-bold text-uppercase text-white" style="letter-spacing: 0.3em;">
+                USERS LIST
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-light bg-gray-200">
+                <tr  class="bg-gray-200">
+                    <th>S.no.</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Date Joined</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.date_joined }}</td>
+                    <td>
+                        <span class="badge bg-secondary">{{ user_profile.role}}</span>
+                        {% if user.user_profile %}
+                            {% if user.user_profile.role == 'doctor' or user.user_profile.role == 'Doctor' %}
+                                <div class="badge bg-primary px-3 py-1">Doctor</div>
+                            {% elif user.user_profile.role == 'admin' or user.user_profile.role == 'Admin' %}
+                                <div class="badge bg-danger px-3 py-1">Admin</div>
+                            {% elif user.user_profile.role == 'user' or user.user_profile.role == 'User' %}
+                                <div class="badge bg-secondary px-3 py-1">User</div>
+                            {% elif user.user_profile.role == 'patient' or user.user_profile.role == 'Patient' %}
+                                <div class="badge bg-orange px-3 py-1">Patient</div>
+                            {% elif user.user_profile.role == '' %}
+                                <div class="badge bg-secondary px-3 py-1">No role</div>
+                            {% else %}
+                                <div class="badge bg-dark px-3 py-1">Unknown</div>
+                            {% endif %}
+                            {% else %}
+                                <div class="badge bg-secondary px-3 py-1">Super User</div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No profiles found.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

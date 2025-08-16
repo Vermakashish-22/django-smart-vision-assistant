@@ -1,0 +1,41 @@
+{% load i18n static admin_adminlte %}
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar bg-gray-900 text-white elevation-4">
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 mb-3 d-flex">
+      <div class="image">
+        <i class="fas fa-user-circle pt-2"></i>
+      </div>
+      <div class="info text-white">
+        {% if request.user.is_authenticated %}
+          <a href="#" class="d-block hover:text-white">{{request.user.first_name}}</a>
+        {% else %}
+          <a href="#" class="d-block">Alexander Pierce</a>
+        {% endif %}        
+      </div>
+    </div>
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+      <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw text-white"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      {% include 'includes/menu-list.html' %}
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
