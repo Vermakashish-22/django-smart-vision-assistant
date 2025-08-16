@@ -5,6 +5,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from patients.models import ConsultationPatient
 import re, datetime
+from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 # from weasyprint import HTML,CSS
 from xhtml2pdf import pisa
@@ -236,6 +237,11 @@ def is_minor_symptom(prescription: str) -> bool:
 
 @login_required(login_url='login_get_view')
 def consultation_form(request):
+    try:
+        patient = Patient.objects.get(user=request.user)
+    except Patient.DoesNotExist:
+        # not a patient → block or redirect
+        return HttpResponseForbidden("You must be a patient to access this form.")
     if request.method == 'POST':
         action = request.POST.get('action')
         name = request.POST.get('name')
@@ -245,8 +251,8 @@ def consultation_form(request):
         age = patient.age
         date = datetime.datetime.now().strftime('%d-%m-%Y')
 
-        serious_keywords = ['blurry', 'pain', 'bleeding', 'surgery', 'operation', 'lasik', 'infection', 'burn', 'double vision']
-        minor_keywords = ['itchy', 'dry', 'tired', 'strain', 'redness', 'watery', 'irritation', 'light sensitive']
+        serious_keywords = ['blurry', 'pain', 'bleeding', 'swalling', 'surgery', 'operation', 'lasik', 'infection', 'burn', 'double vision']
+        minor_keywords = ['itchy', 'dry', 'tired', 'strain', 'redness', 'watery', 'irritation', 'light sensitive','low sight','low eye sight','swalling']
 
         if action == 'generate':
             serious = any(word in user_prescription.lower() for word in serious_keywords)
@@ -367,12 +373,13 @@ def consultation_delete(request, id):
     patient.delete()
     return redirect('consultation_list')
 
-
-@login_required(login_url='login')
+@login_required(login_url='login_get_view')
 def patient_dashboard(request):
     user = request.user
     try:
-        patient = get_object_or_404(Patient, user=request.user)
+        patient = Patient.objects.filter(user=user).first()
+        if not patient:
+            messages.error(request, "Patient profile not found.")
     except Patient.DoesNotExist:
         messages.error(request, "Patient profile not found.")
         return render(request,'patients/patient_dashboard.html')

@@ -29,10 +29,15 @@
                 </div>
 
                 <!-- Patient Image -->
-                <img src="{{ patient.image.url }}" 
-                    alt="Patient Image" 
-                    class="w-25 h-25 rounded-full mr-lg-5 shadow-md object-cover border border-gray-300 mb-4">
-
+                {% if patient.image and patient.image.name %}
+                    <img src="{{ patient.image.url }}" 
+                        alt="Patient Image"
+                        class="w-[300px] h-[200px] rounded-full shadow-md mr-5 object-cover border border-gray-300 mb-4">
+                {% else %}
+                    <img src="{% static 'images/vision-logo-main.png' %}" 
+                        alt="Default Patient Image"
+                        class="w-[300px] h-[200px] rounded-full shadow-md mr-5 object-cover border border-gray-300 mb-4">
+                {% endif %}
             </div>
         </div>
     </div>
@@ -128,11 +133,15 @@
                     <p><strong>Email:</strong> {{ patient.email }}</p>
                 </div>
 
-                <div class="shrink-1 mr-5">
+                {% if patient.image and patient.image.name %}
                     <img src="{{ patient.image.url }}" 
-                    alt="Patient Image" 
-                    class="w-[300px] h-[200px] rounded-full shadow-md mr-5 object-cover border border-gray-300 mb-4">
-                </div>             
+                        alt="Patient Image"
+                        class="w-[300px] h-[200px] rounded-full shadow-md mr-5 object-cover border border-gray-300 mb-4">
+                {% else %}
+                    <img src="{% static 'images/default_patient.png' %}" 
+                        alt="Default Patient Image"
+                        class="w-[300px] h-[200px] rounded-full shadow-md mr-5 object-cover border border-gray-300 mb-4">
+                {% endif %}          
             </div>
         </div>
 

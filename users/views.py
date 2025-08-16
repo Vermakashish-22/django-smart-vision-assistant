@@ -225,7 +225,6 @@ def register_post(request):
                 Appointment.objects.create(
                     doctor=assigned_doctor,
                     patient_name=name,
-                    image=image,
                     appointment_date=timezone.now().date(),
                     appointment_time=datetime.datetime.now().time(),
                     status='Pending'

@@ -6,16 +6,22 @@
 
 {% block content %}
 <div class="min-h-screen w-full bg-gray-900 flex items-center justify-center">
-    <div class="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto"
-         style="scrollbar-width: none; -ms-overflow-style: none;">
+    <!-- outer box (static height auto) -->
+    <div id="formWrapper" class="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
         
         <style>
+            /* hide scrollbar by default */
             .no-scrollbar::-webkit-scrollbar {
                 display: none;
             }
+            .scrollable {
+                max-height: 90vh;   /* fixed height when scroll enabled */
+                overflow-y: auto;   /* only vertical scroll */
+                overflow-x: hidden; /* prevent horizontal scroll */
+            }
         </style>
 
-        <div class="no-scrollbar">
+        <div id="scrollContainer" class="no-scrollbar">
             <div class="flex justify-center items-center mb-6">
                 <h2 class="text-3xl font-bold text-center text-gray-100">Sign In to Create your account</h2>
             </div>
@@ -37,37 +43,12 @@
                             bg-blue-600 text-white
                             {% else %}
                             bg-gray-700 text-white
-                            {% endif %}
-                            ">
-
-                        <!-- ICONS -->
-                        {% if message.tags == 'success' %}
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                        {% elif message.tags == 'error' %}
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        {% elif message.tags == 'warning' %}
-                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z"/>
-                            </svg>
-                        {% elif message.tags == 'info' %}
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
-                            </svg>
-                        {% endif %}
-
-                        <!-- MESSAGE TEXT -->
-                        <span>{{ message }}</span>
-
-                        <!-- DISMISS BUTTON -->
-                        <button onclick="closeToast()" class="ml-auto font-bold hover:opacity-80">
-                            &times;
-                        </button>
-                    </div>
-                    {% endfor%}
+                            {% endif %}">
+                            <!-- icons & message -->
+                            <span>{{ message }}</span>
+                            <button onclick="closeToast()" class="ml-auto font-bold hover:opacity-80">&times;</button>
+                        </div>
+                    {% endfor %}
                 {% endif %}
 
                 <!-- Full Name -->
@@ -76,9 +57,6 @@
                     <div class="relative">
                         <input type="text" name="name" placeholder="Name"
                             class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-id-card"></i>
-                        </span>
                     </div>
                 </div>
 
@@ -88,9 +66,6 @@
                     <div class="relative">
                         <input type="text" name="username" placeholder="Username" autocomplete="off"
                             class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-user"></i>
-                        </span>
                     </div>
                 </div>
 
@@ -112,9 +87,6 @@
                     <div class="relative">
                         <input type="email" name="email" placeholder="Email"
                             class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                     </div>
                 </div>
 
@@ -129,89 +101,46 @@
                             <option value="patient">Patient</option>
                             <option value="admin">Admin</option>
                         </select>
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-users-cog"></i>
-                        </span>
                     </div>
                 </div>
 
                 <!-- Patient Fields -->
                 <div id="patientFields" class="hidden bg-gray-700 p-4 rounded mb-4">
-                    <div class="relative mb-2">
-                        <input type="text" name="age" placeholder="Age"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-calendar-alt"></i>
-                        </span>
-                    </div>
-
-                    <div class="relative mb-2">
-                        <input type="text" name="contact" placeholder="Contact Number"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-phone"></i>
-                        </span>
-                    </div>
-
-                    <div class="relative mb-2">
-                        <select name="blood_group"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                            <option value="">Select Blood Group</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-tint"></i>
-                        </span>
-                    </div>
-
-                    <div class="relative mb-2">
-                        <select name="assigned_doctor"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                            <option value="">Assigned Doctor</option>
-                            {% for doctor in doctors %}
-                                <option value="{{ doctor.id }}">{{ doctor.user.first_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-user-md"></i>
-                        </span>
-                    </div>
-
-                    <div class="mb-2">
-                        <input type="file" name="image"
-                            class="w-full px-3 py-2 rounded bg-gray-800 text-white border border-gray-600">
-                    </div>
+                    <input type="text" name="age" placeholder="Age"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                    <input type="text" name="contact" placeholder="Contact Number"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                    <select name="blood_group"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                    <select name="assigned_doctor"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                        <option value="">Assigned Doctor</option>
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.user.first_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="file" name="image"
+                        class="w-full px-3 py-2 rounded bg-gray-800 text-white border border-gray-600">
                 </div>
 
                 <!-- Doctor Fields -->
                 <div id="doctorFields" class="hidden bg-gray-700 p-4 rounded mb-4">
-                    <div class="relative mb-2">
-                        <input type="text" name="specialization" placeholder="Specialization"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-stethoscope"></i>
-                        </span>
-                    </div>
-
-                    <div class="relative mb-2">
-                        <input type="number" name="fees" placeholder="Consultation Fees"
-                            class="w-full pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 pointer-events-none">
-                            <i class="fas fa-rupee-sign"></i>
-                        </span>
-                    </div>
-
-                    <div class="mb-2">
-                        <input type="file" name="doctor_image"
-                            class="w-full px-3 py-2 rounded bg-gray-800 text-white border border-gray-600">
-                    </div>
+                    <input type="text" name="specialization" placeholder="Specialization"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                    <input type="number" name="fees" placeholder="Consultation Fees"
+                        class="w-full mb-2 pr-10 pl-3 p-2 rounded bg-gray-800 text-white border border-gray-600">
+                    <input type="file" name="doctor_image"
+                        class="w-full px-3 py-2 rounded bg-gray-800 text-white border border-gray-600">
                 </div>
 
                 <input type="hidden" name="is_submitting" value="1">
@@ -239,7 +168,12 @@
         const passwordInput = document.getElementById("password");
         const toggleButton = document.getElementById("togglePassword");
         const toggleIcon = document.getElementById("togglePasswordIcon");
+        const roleSelect = document.getElementById('role');
+        const patientFields = document.getElementById('patientFields');
+        const doctorFields = document.getElementById('doctorFields');
+        const scrollContainer = document.getElementById('scrollContainer');
 
+        // toggle password
         toggleButton.addEventListener("click", function () {
             const isPassword = passwordInput.type === "password";
             passwordInput.type = isPassword ? "text" : "password";
@@ -247,28 +181,27 @@
             toggleIcon.classList.toggle("fa-eye-slash");
         });
 
-        const roleSelect = document.getElementById('role');
-        const patientFields = document.getElementById('patientFields');
-        const doctorFields = document.getElementById('doctorFields');
-
+        // toggle fields & scrollbar
         function toggleExtraFields() {
             const role = roleSelect.value;
             patientFields.style.display = role === 'patient' ? 'block' : 'none';
             doctorFields.style.display = role === 'doctor' ? 'block' : 'none';
+
+            if (role === 'patient' || role === 'doctor') {
+                scrollContainer.classList.add('scrollable');
+            } else {
+                scrollContainer.classList.remove('scrollable');
+            }
         }
 
         roleSelect.addEventListener('change', toggleExtraFields);
-        toggleExtraFields(); // Init
+        toggleExtraFields(); // init
     });
 
-    
-
     function closeToast() {
-        document.getElementById('toast-popup').style.display = 'none';
+        const toast = document.getElementById('toast-popup');
+        if (toast) toast.style.display = 'none';
     }
-
-    // Auto-close after 3 seconds
     setTimeout(closeToast, 3000);
-
 </script>
 {% endblock %}
