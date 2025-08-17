@@ -159,7 +159,7 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 STATIC_URL = '/static/'
 
 # Directory where static files will be collected
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Only include app-level static folders
 STATICFILES_DIRS = [
