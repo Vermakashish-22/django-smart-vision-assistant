@@ -163,7 +163,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Only include app-level static folders
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # if you have a 'static' folder for global assets
+    os.path.join(BASE_DIR, 'staticfiles'),  # if you have a 'static' folder for global assets
 ]
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
