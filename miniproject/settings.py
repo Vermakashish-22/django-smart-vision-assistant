@@ -15,11 +15,7 @@ import os
 
 load_dotenv()  # Load variables from .env
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'django-smart-vision-assistant.onrender.com',
-]
+ALLOWED_HOSTS = ['django-smart-vision-assistant.onrender.com', 'localhost', '127.0.0.1']
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -60,11 +56,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', 
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
